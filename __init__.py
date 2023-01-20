@@ -15,7 +15,7 @@ class VoxHealth(MycroftSkill):
 
 
 #        visit_type = self.get_response('visit.type')
-        self.speak_dialog('confirm.visit.type', {'visit': visit_type})
+#        self.speak_dialog('confirm.visit.type', {'visit': visit_type})
 
         confirmed = self.ask_yesno('confirm.visit.type', {'visit': visit_type})
         if confirmed == 'yes':
