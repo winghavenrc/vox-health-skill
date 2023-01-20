@@ -9,6 +9,9 @@ class VoxHealth(MycroftSkill):
     def handle_health_vox(self, message):
         self.speak_dialog('health.vox')
 
+        visit_type = self.get_response('visit.type')
+        self.speak_dialog('confirm.visit.type', {'visit': visit_type})
+
 
 def create_skill():
     return VoxHealth()
