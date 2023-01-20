@@ -8,10 +8,11 @@ class VoxHealth(MycroftSkill):
     @intent_file_handler('health.vox.intent')
     def handle_health_vox(self, message):
 #        self.speak_dialog('health.vox')
+        self.speak_dialog('visit.type')
 
         self.visit_types = ['health concern', 'wellness exam', 'vaccination', 'screening mammography']
 
-        visit_type = self.ask_selection(self.visit_types, 'visit.type')
+        visit_type = self.ask_selection(self.visit_types)
 
 
 #        visit_type = self.get_response('visit.type')
