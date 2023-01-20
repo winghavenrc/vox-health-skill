@@ -9,8 +9,19 @@ class VoxHealth(MycroftSkill):
     def handle_health_vox(self, message):
         self.speak_dialog('health.vox')
 
-        visit_type = self.get_response('visit.type')
+        self.visit_types = ['health concern', 'wellness exam', 'vaccination', 'screening mammography']
+
+        visit_type = self.ask_selection(self.visit, 'visit.type')
+
+
+#        visit_type = self.get_response('visit.type')
         self.speak_dialog('confirm.visit.type', {'visit': visit_type})
+
+        confirmed = self.ask_yesno('confirm.visit.type', {'visit': visit_type})
+        if confirmed == 'yes':
+            self.speak_dialog('get.provider')
+        else:
+            self.speak_dialog('main.menu', expect_response=True)
 
 
 def create_skill():
