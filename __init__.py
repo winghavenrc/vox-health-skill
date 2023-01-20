@@ -1,6 +1,7 @@
 from mycroft import MycroftSkill, intent_file_handler
-import os
-import openai
+
+#import os
+#import openai
 import json
 
 class VoxHealth(MycroftSkill):
@@ -42,7 +43,7 @@ class VoxHealth(MycroftSkill):
     # for printing the key-value pair of
     # nested dictionary for loop can be used
 
-            provider_list = []
+            self.provider_list = []
 
             for provider in care_team['entry']:
                 name = provider['name']
