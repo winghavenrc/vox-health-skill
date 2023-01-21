@@ -30,11 +30,12 @@ class VoxHealth(MycroftSkill):
             self.speak_dialog('get.provider')
 # Opening JSON file
 
-            f = open('care_team.json')
+            with self.file_system.open('care_team.json', "r") as care_team_file:
+#            f = open('care_team.json')
   
 # returns JSON object as 
 # a dictionary
-            care_team = json.load(f)
+                care_team = json.load(care_team_file)
 
 #            (data['people1'][0]
 # Iterating through the json
@@ -43,26 +44,26 @@ class VoxHealth(MycroftSkill):
     # for printing the key-value pair of
     # nested dictionary for loop can be used
 
-            self.provider_list = []
+                self.provider_list = []
 
-            for provider in care_team['entry']:
-                name = provider['name']
-                specialty = provider['specialty']
+                for provider in care_team['entry']:
+                    name = provider['name']
+                    specialty = provider['specialty']
 
-                lastname = name['family'];
-                firstname = name['given'];
-                fullname = firstname + " " + lastname + " " + specialty;
-                self.provider_list.append(fullname)
+                    lastname = name['family'];
+                    firstname = name['given'];
+                    fullname = firstname + " " + lastname + " " + specialty;
+                    self.provider_list.append(fullname)
 
-            self.speak_dialog("I can schedule with any of your currently active providers. Which one of these do you want to schedule with...", wait = True)
+                self.speak_dialog("I can schedule with any of your currently active providers. Which one of these do you want to schedule with...", wait = True)
 
-            selected = self.ask_selection(self.provider_list)
+                selected = self.ask_selection(self.provider_list)
 
-            self.speak_dialog("You selected {provider}", {"provider": selected})
+                self.speak_dialog("You selected {provider}", {"provider": selected})
             
 
 # Closing file
-            f.close()
+                care_team_file.close()
 
 #    @intent_file_handler('general.q.intent')
 #    def handle_general_questions(self):
