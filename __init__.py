@@ -27,8 +27,9 @@ class VoxHealth(MycroftSkill):
         if confirmed != 'yes':
             self.speak_dialog('main.menu', expect_response=True)
         else:
-            self.speak_dialog('get.provider')
+            self.speak_dialog('get.provider', wait=True)
 # Opening JSON file
+            self.log.info(self.file_system.path)
 
             with self.file_system.open('care_team.json', "r") as care_team_file:
 #            f = open('care_team.json')
