@@ -70,7 +70,7 @@ class VoxHealth(MycroftSkill):
 #    def handle_general_questions(self):
 
 # Load your API key from an environment variable or secret management service
-#        openai.api_key = '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'
+#        openai.api_key = ''
 
 #        response = openai.Completion.create(model: "text-davinci-003", prompt = question, temperature=0, max_tokens=1000)
 #        speakOut = response + " How else can I help you";
