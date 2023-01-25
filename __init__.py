@@ -61,7 +61,7 @@ class VoxHealth(MycroftSkill):
                 self.speak_dialog("I can schedule with any of your currently active providers. Which one of these do you want to schedule with...", wait = True)
 
                 selected = self.ask_selection(self.provider_list)
-                self.speak_dialog('get.provider', {"provider": selected}, wait=False)
+                self.speak_dialog('get.provider', data = {"provider": selected}, expect_response = True, wait=True)
             
 
 # Closing file
