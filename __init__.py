@@ -50,8 +50,9 @@ class VoxHealth(MycroftSkill):
                 for provider in care_team['entry']:
                     name = provider['name']
                     specialty = provider['specialty']
+                    self.log.info('Name = ',name)
 
-                    lastname = name['family'];
+                    lastname = provider['name']['family'];
                     firstname = name['given'];
                     fullname = firstname + " " + lastname + " " + specialty;
                     self.provider_list.append(fullname)
