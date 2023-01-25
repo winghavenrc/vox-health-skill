@@ -57,7 +57,7 @@ class VoxHealth(MycroftSkill):
 #                    firstname = name['given'];
 #                    fullname = firstname + " " + lastname + " " + specialty;
 #                    self.provider_list.append(fullname)
-                    self.provider_list.append(name)
+                    self.provider_list.append(specialty)
 
                 self.speak_dialog("I can schedule with any of your currently active providers. Which one of these do you want to schedule with...", wait = True)
 
