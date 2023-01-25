@@ -50,12 +50,14 @@ class VoxHealth(MycroftSkill):
                 for provider in care_team['entry']:
                     name = provider['name']
                     specialty = provider['specialty']
-                    self.log.info('Name = ',name)
+                    self.log.info(name)
+                    self.log.info(specialty)
 
-                    lastname = provider['name']['family'];
-                    firstname = name['given'];
-                    fullname = firstname + " " + lastname + " " + specialty;
-                    self.provider_list.append(fullname)
+#                    lastname = provider['name']['family'];
+#                    firstname = name['given'];
+#                    fullname = firstname + " " + lastname + " " + specialty;
+#                    self.provider_list.append(fullname)
+                    self.provider_list.append(name)
 
                 self.speak_dialog("I can schedule with any of your currently active providers. Which one of these do you want to schedule with...", wait = True)
 
