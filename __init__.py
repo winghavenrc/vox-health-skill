@@ -26,8 +26,6 @@ class VoxHealth(MycroftSkill):
         confirmed = self.ask_yesno('confirm.visit.type', {'visit': visit_type})
         if confirmed != 'yes':
             self.speak_dialog('main.menu', expect_response=True)
-        else:
-            self.speak_dialog('get.provider', wait=True)
 # Opening JSON file
             self.log.info(self.file_system.path)
 
@@ -63,8 +61,7 @@ class VoxHealth(MycroftSkill):
                 self.speak_dialog("I can schedule with any of your currently active providers. Which one of these do you want to schedule with...", wait = True)
 
                 selected = self.ask_selection(self.provider_list)
-
-                self.speak_dialog("You selected {provider}", {"provider": selected})
+                self.speak_dialog('get.provider', {"provider": selected}, wait=False)
             
 
 # Closing file
