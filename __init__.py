@@ -14,10 +14,10 @@ class VoxHealth(MycroftSkill):
 
         self.visit_types = ['health concern', 'wellness exam', 'vaccination', 'screening mammography']
 
-#        self.speak_dialog('visit.type', wait = True)
+        self.speak_dialog('visit.type', wait = True)
 
 
-        visit_type = self.ask_selection('visit.type', self.visit_types)
+        visit_type = self.ask_selection(self.visit_types, dialog='visit.type', min_conf = .5)
 
 
 #        visit_type = self.get_response('visit.type')
