@@ -14,10 +14,10 @@ class VoxHealth(MycroftSkill):
 
         self.visit_types = ['health concern', 'wellness exam', 'vaccination', 'screening mammography']
 
-        self.speak_dialog('visit.type', wait = True)
+#        self.speak_dialog('visit.type', wait = True)
 
 
-        visit_type = self.ask_selection(self.visit_types)
+        visit_type = self.ask_selection('visit.type', self.visit_types)
 
 
 #        visit_type = self.get_response('visit.type')
@@ -25,7 +25,7 @@ class VoxHealth(MycroftSkill):
 
         confirmed = self.ask_yesno('confirm.visit.type', {'visit': visit_type})
         if confirmed != 'yes':
-            self.speak_dialog('main.menu', expect_response=True)
+            self.speak_dialog('main.menu', expect_response=False)
 # Opening JSON file
         else:
             self.log.info(self.file_system.path)
@@ -68,16 +68,7 @@ class VoxHealth(MycroftSkill):
 # Closing file
                 care_team_file.close()
 
-#    @intent_file_handler('general.q.intent')
-#    def handle_general_questions(self):
-
-# Load your API key from an environment variable or secret management service
-#        openai.api_key = ''
-
-#        response = openai.Completion.create(model: "text-davinci-003", prompt = question, temperature=0, max_tokens=1000)
-#        speakOut = response + " How else can I help you";
-#        self.speak_dialog('general.q.answer', {'response': speakOut})
-
+def 
 
 def create_skill():
     return VoxHealth()
