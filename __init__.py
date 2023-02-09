@@ -28,7 +28,7 @@ class VoxHealth(MycroftSkill):
 #        self.speak_dialog('confirm.visit.type', {'visit': visit_type})
 
         confirmed = self.ask_yesno('confirm.visit.type', {'visit': visit_type})
-        if confirmed != 'yes':
+        if confirmed in ["n", "no", "nope"]:
             self.speak_dialog('main.menu', expect_response=False)
 # Opening JSON file
         else:
@@ -94,7 +94,7 @@ def find_first(self):
     while day < 5:
 
       availableTimes = mt_find_available_appts(self, searchDate, 'pm', 'America/Chicago')
-      if availableTimes["total"] > 0:
+      if len(availableTimes["start"]) > 0:
         self.log.info(searchDate)
 #               meditech.revokeToken(handlerInput); // see revokeToken for why to call this now
         break
@@ -190,14 +190,11 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
     id = []
 
     index = 0
-    found = 0
     while index < total:
-      start = apptSlots["entry"][index]["resource"]["start"];
-      end = apptSlots["entry"][index]["resource"]["end"];
-      id = apptSlots["entry"][index]["resource"]["id"];
+
       self.log.info(apptSlots["entry"][index]["resource"])
 
-      localStart = datetime.datetime.strptime(start, "%Y-%m-%dT%H:%M:%S%z")
+      localStart = datetime.datetime.strptime(apptSlots["entry"][index]["resource"]["start"], "%Y-%m-%dT%H:%M:%S%z")
       meridien = localStart.strftime("%p")
 
       save = False
@@ -210,8 +207,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
             save = True
       if save == True:
         start.append(localStart);
-        id.append(id);
-        found = found+1
+        id.append(apptSlots["entry"][index]["resource"]["id"]);
 
       index = index+1
 
@@ -219,7 +215,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
     # Handle error
     self.log.info(response.status_code)
 
-  availableTimes = { "total": found, "start": start, "id": id }
+  availableTimes = { "start": start, "id": id }
   self.log.info(availableTimes)
 
   return availableTimes
