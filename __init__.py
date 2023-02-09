@@ -198,7 +198,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
       localStart_dt = datetime.datetime.strptime(apptSlots["entry"][index]["resource"]["start"], "%Y-%m-%dT%H:%M:%S%z")
       self.log.info(localStart_dt)
       meridien = localStart_dt.strftime("%p")
-      localStart_str = datetime.datetime.strftime(apptSlots["entry"][index]["resource"]["start"], "%c")
+      localStart_str = datetime.datetime.strftime(localStart_dt, "%A %B %-d %-I:%-M %p")
 
       save = False
 
