@@ -110,7 +110,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
 
 # for a given searchDate
 
-  availableTimes = {"total": 0}
+  availableTimes = {"start": []}
 
   ### Get a Meditech token
 
