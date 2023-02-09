@@ -72,7 +72,7 @@ class VoxHealth(MycroftSkill):
 
 #               find first appts available from today
                 timeSlots = find_first(self)
-                self.speak_dialog('speak.times', data = {"total": len(timeSlots)}, expect_response = False, wait=False)
+                self.speak_dialog('speak.times', data = {"total": len(timeSlots)}, expect_response = False, wait=True)
                 for index in range(0,len(timeSlots)):
                   self.speak_dialog('speak.timeslots', data = {"slot": timeSlots[index]["start"]}, expect_response = False, wait=False)
 
@@ -195,8 +195,10 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
 
       self.log.info(apptSlots["entry"][index]["resource"])
 
-      localStart = datetime.datetime.strptime(apptSlots["entry"][index]["resource"]["start"], "%Y-%m-%dT%H:%M:%S%z")
-      meridien = localStart.strftime("%p")
+      localStart_dt = datetime.datetime.strptime(apptSlots["entry"][index]["resource"]["start"], "%Y-%m-%dT%H:%M:%S%z")
+      self.log.info(localStart_dt)
+      meridien = localStart_dt.strftime("%p")
+      localStart_str = datetime.datetime.strftime(apptSlots["entry"][index]["resource"]["start"], "%c")
 
       save = False
 
@@ -207,7 +209,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
         if meridien == "PM":
             save = True
       if save == True:
-        slot = {"start": localStart, "id": apptSlots["entry"][index]["resource"]["id"]}
+        slot = {"start": localStart_str, "id": apptSlots["entry"][index]["resource"]["id"]}
         availableTimes.append(slot)
 #        start.append(localStart);
 #        id.append(apptSlots["entry"][index]["resource"]["id"]);
