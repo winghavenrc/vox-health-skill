@@ -72,7 +72,7 @@ class VoxHealth(MycroftSkill):
 
 #               find first appts available from today
                 timeSlots = find_first(self)
-                self.speak_dialog('speak.times', data = {"total": timeSlots["total"]}, expect_response = False, wait=False)
+                self.speak_dialog('speak.times', data = {"total": len(timeSlots["start"])}, expect_response = False, wait=False)
 
 
 
