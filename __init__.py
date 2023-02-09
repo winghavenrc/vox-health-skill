@@ -93,7 +93,7 @@ def find_first(self):
 
     while day < 5:
 
-      availableTimes = mt_find_available_appts(self, searchDate, 'am', 'America/Chicago')
+      availableTimes = mt_find_available_appts(self, searchDate, 'pm', 'America/Chicago')
       if availableTimes["total"] > 0:
         self.log.info(searchDate)
 #               meditech.revokeToken(handlerInput); // see revokeToken for why to call this now
@@ -211,9 +211,9 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
       if save == True:
         start.append(localStart);
         id.append(id);
-        found += 1
+        found = found+1
 
-      index += 1
+      index = index+1
 
   else:
     # Handle error
