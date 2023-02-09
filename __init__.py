@@ -94,7 +94,7 @@ def find_first(self):
     while day < 14:
 
       availableTimes = mt_find_available_appts(self, searchDate, 'am', 'America/Chicago')
-      if (availableTimes.start.length > 0):
+      if availableTimes["total"] > 0:
         self.log.info("Meditech FindFirst Found a date with availability ", searchDate)
 #               meditech.revokeToken(handlerInput); // see revokeToken for why to call this now
         break
@@ -109,6 +109,8 @@ def find_first(self):
 def mt_find_available_appts(self, searchDate, ampm, userTimezone):
 
 # for a given searchDate
+
+  availableTimes = {"total": 0}
 
   ### Get a Meditech token
 
@@ -182,12 +184,13 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
     total = apptSlots["total"];
     if (total == 0):
         # means there's no appointments available
-      return False
+      return availableTimes
 
     start = []
     id = []
 
     index = 0
+    found = 0
     while index < total:
       start = apptSlots["entry"][index]["resource"]["start"];
       end = apptSlots["entry"][index]["resource"]["end"];
@@ -207,6 +210,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
       if save == True:
         start.append(localStart);
         id.append(id);
+        found += 1
 
       index += 1
 
@@ -214,7 +218,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
     # Handle error
     self.log.info("Request failed with status code:", response.status_code)
 
-  availableTimes = { "start": start, "id": id }
+  availableTimes = { "total": found, "start": start, "id": id }
 
   return availableTimes
 
