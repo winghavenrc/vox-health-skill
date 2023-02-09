@@ -72,14 +72,14 @@ class VoxHealth(MycroftSkill):
 
 #               find first appts available from today
                 timeSlots = find_first(self)
-            
+                self.speak_dialog('speak.times', data = {"total": timeSlots["total"]}, expect_response = False, wait=False)
+
 
 
 
 
 def find_first(self):
-    timeSlots = []
-
+    
     # get the current date and time
     today = datetime.date.today()
 
@@ -91,18 +91,18 @@ def find_first(self):
     searchDate = today
     day = 0
 
-    while day < 14:
+    while day < 5:
 
       availableTimes = mt_find_available_appts(self, searchDate, 'am', 'America/Chicago')
       if availableTimes["total"] > 0:
-        self.log.info("Meditech FindFirst Found a date with availability ", searchDate)
+        self.log.info(searchDate)
 #               meditech.revokeToken(handlerInput); // see revokeToken for why to call this now
         break
        
       searchDate = datetime.date(searchDate.year, searchDate.month, searchDate.day+1)
     
 
-    return timeSlots
+    return availableTimes
 
 
 
@@ -182,7 +182,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
     self.log.info(apptSlots)
 
     total = apptSlots["total"];
-    if (total == 0):
+    if total == 0:
         # means there's no appointments available
       return availableTimes
 
@@ -195,16 +195,17 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
       start = apptSlots["entry"][index]["resource"]["start"];
       end = apptSlots["entry"][index]["resource"]["end"];
       id = apptSlots["entry"][index]["resource"]["id"];
+      self.log.info(apptSlots["entry"][index]["resource"])
 
       localStart = datetime.datetime.strptime(start, "%Y-%m-%dT%H:%M:%S%z")
       meridien = localStart.strftime("%p")
 
       save = False
 
-      if ampm in ["AM", "MO", "morning"]:
+      if ampm in ["am", "AM", "MO", "morning"]:
         if meridien == "AM":
             save = True
-      elif ampm in ["PM", "AF", "afternoon"]:
+      elif ampm in ["pm", "PM", "AF", "afternoon"]:
         if meridien == "PM":
             save = True
       if save == True:
@@ -216,9 +217,10 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
 
   else:
     # Handle error
-    self.log.info("Request failed with status code:", response.status_code)
+    self.log.info(response.status_code)
 
   availableTimes = { "total": found, "start": start, "id": id }
+  self.log.info(availableTimes)
 
   return availableTimes
 
