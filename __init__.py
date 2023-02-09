@@ -142,7 +142,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
   response = requests.post(token_url, data=token_req_payload, verify=False, allow_redirects=False, auth=(client_id, client_secret))
 
 #  response = requests.post(token_url, data={"grant_type": "client_credentials", "client_id": client_id, "client_secret": client_secret })
-  self.log.info("MT Token create: ",response)
+  self.log.info(response)
 
 # Parse the JSON response
   response_data = json.loads(response.text)
