@@ -72,9 +72,9 @@ class VoxHealth(MycroftSkill):
 
 #               find first appts available from today
                 timeSlots = find_first(self)
-                self.speak_dialog('speak.times', data = {"total": len(timeSlots["start"])}, expect_response = False, wait=False)
-                for index in range(0,len(timeSlots["start"])-1):
-                  self.speak_dialog('speak.timeslots', data = {"slot": timeSlots["start"][index]}, expect_response = False, wait=False)
+                self.speak_dialog('speak.times', data = {"total": len(timeSlots)}, expect_response = False, wait=False)
+                for index in range(0,len(timeSlots)-1):
+                  self.speak_dialog('speak.timeslots', data = {"slot": timeSlots[index].start}, expect_response = False, wait=False)
 
 
 
@@ -95,7 +95,7 @@ def find_first(self):
     for day in range(1,5):
 
       availableTimes = mt_find_available_appts(self, searchDate, 'pm', 'America/Chicago')
-      if len(availableTimes["start"]) > 0:
+      if len(availableTimes) > 0:
         self.log.info(searchDate)
 #               meditech.revokeToken(handlerInput); // see revokeToken for why to call this now
         break
@@ -111,7 +111,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
 
 # for a given searchDate
 
-  availableTimes = {"start": []}
+  availableTimes = []
 
   ### Get a Meditech token
 
@@ -190,6 +190,7 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
     start = []
     id = []
 
+  
     for index in range(0,total-1):
 
       self.log.info(apptSlots["entry"][index]["resource"])
@@ -206,10 +207,12 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
         if meridien == "PM":
             save = True
       if save == True:
-        start.append(localStart);
-        id.append(apptSlots["entry"][index]["resource"]["id"]);
+        slot = {"start": localStart, "id": apptSlots["entry"][index]["resource"]["id"]}
+        availableTimes.append(slot)
+#        start.append(localStart);
+#        id.append(apptSlots["entry"][index]["resource"]["id"]);
   
-    availableTimes = { "start": start, "id": id }
+#    availableTimes = { "start": start, "id": id }
     self.log.info(availableTimes)
 
   else:
