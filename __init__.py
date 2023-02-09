@@ -135,12 +135,14 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
   token_url = BASE_HOST + OAUTH_TOKEN
 
 # Request an access token
-  response = requests.post(token_url, data={
-    "grant_type": "client_credentials",
-    "client_id": client_id,
-    "client_secret": client_secret
-  })
-  self.log.info(response)
+
+
+  token_req_payload = {'grant_type': 'client_credentials', 'scope': 'patient/ArgoScheduling.* patient/ArgoScheduling.read'}
+
+  response = requests.post(token_url, data=token_req_payload, verify=False, allow_redirects=False, auth=(client_id, client_secret))
+
+#  response = requests.post(token_url, data={"grant_type": "client_credentials", "client_id": client_id, "client_secret": client_secret })
+  self.log.info("MT Token create: ",response)
 
 # Parse the JSON response
   response_data = json.loads(response.text)
