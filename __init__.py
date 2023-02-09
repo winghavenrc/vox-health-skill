@@ -73,7 +73,7 @@ class VoxHealth(MycroftSkill):
 #               find first appts available from today
                 timeSlots = find_first(self)
                 self.speak_dialog('speak.times', data = {"total": len(timeSlots["start"])}, expect_response = False, wait=False)
-                for index in range(0,len(timeSlots["start"]-1)):
+                for index in range(0,len(timeSlots["start"])-1):
                   self.speak_dialog('speak.timeslots', data = {"slot": timeSlots["start"][index]}, expect_response = False, wait=False)
 
 
@@ -208,13 +208,14 @@ def mt_find_available_appts(self, searchDate, ampm, userTimezone):
       if save == True:
         start.append(localStart);
         id.append(apptSlots["entry"][index]["resource"]["id"]);
+  
+    availableTimes = { "start": start, "id": id }
+    self.log.info(availableTimes)
 
   else:
     # Handle error
     self.log.info(response.status_code)
 
-  availableTimes = { "start": start, "id": id }
-  self.log.info(availableTimes)
 
   return availableTimes
 
