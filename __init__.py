@@ -1,4 +1,4 @@
-from mycroft import MycroftSkill, intent_handler
+from mycroft import MycroftSkill, intent_file_handler
 
 #import os
 #import openai
@@ -11,10 +11,10 @@ import appointments as appt
 
 class VoxHealth(MycroftSkill):
     
-    def initialize(self):
+ #   def initialize(self):
  #       self.register_entity_file('type.entity')
 
- #   def __init__(self):
+    def __init__(self):
         MycroftSkill.__init__(self)
 
     @intent_handler('find.appointment.intent')
