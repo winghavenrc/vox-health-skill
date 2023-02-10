@@ -5,7 +5,7 @@ from mycroft import MycroftSkill, intent_file_handler
 
 import json
 
-from mycroft import appointments as appt
+import appointments
 
 
 class VoxHealth(MycroftSkill):
@@ -75,8 +75,8 @@ class VoxHealth(MycroftSkill):
                 selected = self.ask_selection(self.provider_list)
                 self.speak_dialog('get.provider', data = {"provider": selected}, expect_response = True, wait=True)
 
-#               find first appts available from today
-                timeSlots = appt.find_first(self)
+#               find first appointments available from today
+                timeSlots = appointments.find_first(self)
                 self.speak_dialog('speak.times', data = {"total": len(timeSlots)}, expect_response = False, wait=False)
                 for index in range(0,len(timeSlots)):
                   self.speak_dialog('speak.timeslots', data = {"slot": timeSlots[index]["start"]}, expect_response = False, wait=False)
