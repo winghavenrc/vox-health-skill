@@ -17,7 +17,7 @@ class VoxHealth(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
 
-    @intent_handler('find.appointment.intent')
+    @intent_handler('health.vox.intent')
 
     def handle_health_vox(self, message):
 #        self.speak_dialog('health.vox')
