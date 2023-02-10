@@ -2,9 +2,9 @@ from mycroft import MycroftSkill, intent_file_handler
 
 #import os
 #import openai
+
 import json
-import datetime
-import requests
+
 
 import appointments as appt
 
@@ -18,7 +18,7 @@ class VoxHealth(MycroftSkill):
         MycroftSkill.__init__(self)
 
     @intent_file_handler('health.vox.intent')
-    
+
     def handle_health_vox(self, message):
 #        self.speak_dialog('health.vox')
 
