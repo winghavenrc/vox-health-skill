@@ -5,8 +5,7 @@ from mycroft import MycroftSkill, intent_file_handler
 
 import json
 
-
-import appointments as appt
+from mycroft import appointments as appt
 
 
 class VoxHealth(MycroftSkill):
