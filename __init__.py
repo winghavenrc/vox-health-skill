@@ -1,5 +1,5 @@
 
-from mycroft import MycroftSkill, intent_file_handler
+from mycroft import MycroftSkill, intent_handler
 
 # import os
 # import openai
@@ -18,7 +18,8 @@ class VoxHealth(MycroftSkill):
 
  #       self.register_entity_file('type.entity')
 
-    @intent_file_handler('health.vox.intent')
+    @intent_handler('health.vox.intent')
+
     def handle_health_vox(self, message):
 
         self.log.info(message)
