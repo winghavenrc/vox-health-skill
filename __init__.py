@@ -1,5 +1,5 @@
 
-from adapt.intent import IntentBuilder
+from padatious.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_handler
 
 # import os
@@ -18,8 +18,11 @@ class VoxHealth(MycroftSkill):
         my_setting = self.settings.get('my_setting')
  #       self.register_entity_file('type.entity')
 
+#    def __init__(self):
+#        MycroftSkill.__init__(self)
+
     def __init__(self):
-        MycroftSkill.__init__(self)
+        super().__init__()
 
     @intent_handler('health.vox.intent')
     def handle_health_vox(self, message):
