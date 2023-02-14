@@ -1,4 +1,5 @@
 
+from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_handler
 
 # import os
@@ -13,12 +14,12 @@ from appointments import find_first
 
 class VoxHealth(MycroftSkill):
 
-    def __init__(self):
-        MycroftSkill.__init__(self)
-
     def initialize(self):
         my_setting = self.settings.get('my_setting')
  #       self.register_entity_file('type.entity')
+
+    def __init__(self):
+        MycroftSkill.__init__(self)
 
     @intent_handler('health.vox.intent')
     def handle_health_vox(self, message):
