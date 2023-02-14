@@ -8,7 +8,7 @@ import json
 import datetime
 import requests
 
-from __appointments__ import find_first
+from appointments import find_first
 
 
 class VoxHealth(MycroftSkill):
