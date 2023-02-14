@@ -16,10 +16,11 @@ class VoxHealth(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
 
+    def initialize(self):
+        my_setting = self.settings.get('my_setting')
  #       self.register_entity_file('type.entity')
 
     @intent_handler('health.vox.intent')
-
     def handle_health_vox(self, message):
 
         self.log.info(message)
