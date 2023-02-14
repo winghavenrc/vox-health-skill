@@ -1,6 +1,6 @@
 
 from padatious.intent import IntentBuilder
-from mycroft import MycroftSkill, intent_handler
+from mycroft import MycroftSkill, intent_file_handler
 
 # import os
 # import openai
@@ -24,7 +24,7 @@ class VoxHealth(MycroftSkill):
     def __init__(self):
         super().__init__()
 
-    @intent_handler('health.vox.intent')
+    @intent_file_handler('health.vox.intent')
     def handle_health_vox(self, message):
 
         self.log.info(message)
